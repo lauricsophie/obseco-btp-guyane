@@ -16,156 +16,91 @@
   --gris-clair: #f4f6f8;
   --radius: 10px;
 }
-
 * { box-sizing: border-box; }
-
-body {
-  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  margin: 0;
-  background: var(--gris-clair);
-  color: var(--gris-texte);
+body { font-family: "Segoe UI","Helvetica Neue",Arial,sans-serif; margin:0; background:var(--gris-clair); color:var(--gris-texte); }
+.topbar { display:flex; justify-content:space-between; align-items:center; background:linear-gradient(135deg,var(--bleu-cerc) 0%,var(--vert-cerc) 100%); color:white; padding:16px 28px; box-shadow:0 2px 6px rgba(0,0,0,0.15); }
+.brand { display:flex; flex-direction:column; }
+.brand strong { font-size:1.05rem; letter-spacing:0.3px; }
+.brand span { font-size:0.78rem; opacity:0.9; }
+.counter { font-size:0.9rem; font-weight:600; background:var(--vert-accent); color:var(--bleu-cerc); padding:6px 14px; border-radius:20px; white-space:nowrap; }
+.progress-wrap { padding:14px 28px; background:white; border-bottom:1px solid #e5e8eb; }
+.progress-bar { height:10px; background:#e9edf0; border-radius:6px; overflow:hidden; }
+.progress-fill { height:100%; width:10%; background:linear-gradient(90deg,var(--bleu-mosaique),var(--vert-cerc),var(--vert-accent)); transition:width 0.45s ease; border-radius:6px; }
+.substeps { display:flex; gap:6px; padding:10px 28px 0 28px; background:white; }
+.substeps span { flex:1; text-align:center; font-size:0.72rem; padding:4px 2px; border-radius:6px; color:var(--gris-tagline); background:#eef1f3; }
+.substeps span.active { background:var(--vert-cerc); color:white; font-weight:600; }
+main { max-width:680px; margin:36px auto; padding:32px; background:white; border-radius:var(--radius); box-shadow:0 4px 16px rgba(27,49,96,0.1); }
+.screen { display:none; }
+.screen.active { display:block; animation:fadein 0.3s ease; }
+@keyframes fadein { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:translateY(0);} }
+h1 { color:var(--bleu-cerc); font-size:1.5rem; margin-top:0; }
+h2 { color:var(--bleu-cerc); font-size:1.25rem; border-left:4px solid var(--vert-cerc); padding-left:12px; }
+h3 { color:var(--bleu-cerc); font-size:1rem; margin-top:24px; }
+p { line-height:1.55; }
+.note { font-size:0.85rem; color:var(--gris-tagline); background:#eef6ea; padding:10px 14px; border-radius:8px; border-left:3px solid var(--vert-cerc); }
+label { display:block; margin-top:16px; font-weight:600; font-size:0.88rem; color:var(--bleu-cerc); }
+input, select, textarea {
+  width:100%; padding:11px 12px; margin-top:6px; border:1px solid #d4d9dd; border-radius:var(--radius);
+  font-size:1rem; background:#fbfcfd; transition:border-color 0.2s ease, box-shadow 0.2s ease; font-family:inherit;
 }
-
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(135deg, var(--bleu-cerc) 0%, var(--vert-cerc) 100%);
-  color: white;
-  padding: 16px 28px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+textarea { resize:vertical; min-height:64px; }
+input:focus, select:focus, textarea:focus { outline:none; border-color:var(--bleu-mosaique); box-shadow:0 0 0 3px rgba(79,168,216,0.18); }
+.nav-buttons { margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary, .btn-secondary, .btn-tertiary {
+  padding:11px 22px; border-radius:var(--radius); border:none; font-size:0.95rem; font-weight:600; cursor:pointer;
+  transition:transform 0.1s ease, background 0.2s ease;
 }
-
-.brand { display: flex; flex-direction: column; }
-.brand strong { font-size: 1.05rem; letter-spacing: 0.3px; }
-.brand span { font-size: 0.78rem; opacity: 0.9; }
-
-.counter {
-  font-size: 0.9rem;
-  font-weight: 600;
-  background: var(--vert-accent);
-  color: var(--bleu-cerc);
-  padding: 6px 14px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
-
-.progress-wrap { padding: 14px 28px; background: white; border-bottom: 1px solid #e5e8eb; }
-.progress-bar { height: 10px; background: #e9edf0; border-radius: 6px; overflow: hidden; }
-.progress-fill {
-  height: 100%;
-  width: 10%;
-  background: linear-gradient(90deg, var(--bleu-mosaique), var(--vert-cerc), var(--vert-accent));
-  transition: width 0.45s ease;
-  border-radius: 6px;
-}
-
-main {
-  max-width: 660px;
-  margin: 36px auto;
-  padding: 32px;
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 16px rgba(27,49,96,0.1);
-}
-
-.screen { display: none; }
-.screen.active { display: block; animation: fadein 0.3s ease; }
-@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-h1 { color: var(--bleu-cerc); font-size: 1.5rem; margin-top: 0; }
-h2 { color: var(--bleu-cerc); font-size: 1.25rem; border-left: 4px solid var(--vert-cerc); padding-left: 12px; }
-
-p { line-height: 1.55; }
-.note {
-  font-size: 0.85rem;
-  color: var(--gris-tagline);
-  background: #eef6ea;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border-left: 3px solid var(--vert-cerc);
-}
-
-label { display: block; margin-top: 16px; font-weight: 600; font-size: 0.88rem; color: var(--bleu-cerc); }
-input, select {
-  width: 100%;
-  padding: 11px 12px;
-  margin-top: 6px;
-  border: 1px solid #d4d9dd;
-  border-radius: var(--radius);
-  font-size: 1rem;
-  background: #fbfcfd;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-input:focus, select:focus {
-  outline: none;
-  border-color: var(--bleu-mosaique);
-  box-shadow: 0 0 0 3px rgba(79,168,216,0.18);
-}
-
-.nav-buttons { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
-
-.btn-primary, .btn-secondary {
-  padding: 11px 22px;
-  border-radius: var(--radius);
-  border: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.1s ease, background 0.2s ease;
-}
-.btn-primary { background: var(--vert-cerc); color: white; }
-.btn-primary:hover { background: #3f8433; transform: translateY(-1px); }
-.btn-secondary { background: #eef1f3; color: var(--bleu-cerc); }
-.btn-secondary:hover { background: #dfe4e8; }
-
-.valorisation { font-size: 1.05rem; color: var(--vert-cerc); font-weight: 700; text-align: center; }
-
+.btn-primary { background:var(--vert-cerc); color:white; }
+.btn-primary:hover { background:#3f8433; transform:translateY(-1px); }
+.btn-secondary { background:#eef1f3; color:var(--bleu-cerc); }
+.btn-secondary:hover { background:#dfe4e8; }
+.btn-tertiary { background:var(--bleu-mosaique); color:white; padding:9px 16px; font-size:0.87rem; }
+.btn-tertiary:hover { background:#3f93c2; }
+.valorisation { font-size:1.05rem; color:var(--vert-cerc); font-weight:700; text-align:center; }
 .check-anim {
-  width: 68px; height: 68px;
-  background: var(--vert-accent); color: var(--bleu-cerc);
-  border-radius: 50%; text-align: center; font-size: 2.1rem; line-height: 68px;
-  margin: 8px auto 18px auto;
-  animation: pop 0.4s ease;
-  box-shadow: 0 4px 12px rgba(184,212,49,0.4);
+  width:68px; height:68px; background:var(--vert-accent); color:var(--bleu-cerc); border-radius:50%;
+  text-align:center; font-size:2.1rem; line-height:68px; margin:8px auto 18px auto; animation:pop 0.4s ease;
+  box-shadow:0 4px 12px rgba(184,212,49,0.4);
 }
-@keyframes pop { 0% { transform: scale(0); } 80% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes pop { 0%{transform:scale(0);} 80%{transform:scale(1.15);} 100%{transform:scale(1);} }
+#screen-confirmation h2, #screen-confirmation p, #screen-merci h2 { text-align:center; }
+.hidden { display:none; }
+#resumeBox { background:#eaf3fb; border:1px solid var(--bleu-mosaique); border-radius:var(--radius); padding:16px; margin:16px 0; }
 
-#screen-confirmation h2, #screen-confirmation p, #screen-merci h2 { text-align: center; }
-
-.hidden { display: none; }
-
-#resumeBox {
-  background: #eaf3fb;
-  border: 1px solid var(--bleu-mosaique);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin: 16px 0;
+.financeur-row {
+  display:flex; gap:10px; align-items:flex-end; margin-top:12px; padding:12px; background:#fbfcfd;
+  border:1px solid #e5e8eb; border-radius:var(--radius);
 }
+.financeur-row select { flex:2; margin-top:0; }
+.financeur-row input { flex:1; margin-top:0; }
+.financeur-row button {
+  background:#c62828; color:white; border:none; border-radius:6px; padding:10px 12px; cursor:pointer; font-size:0.85rem;
+}
+.financeur-row button:hover { background:#a51f1f; }
+.total-financement { margin-top:14px; padding:12px 14px; border-radius:var(--radius); font-size:0.9rem; font-weight:600; }
+.total-financement.ok { background:#eaf6e9; color:var(--vert-cerc); border:1px solid var(--vert-cerc); }
+.total-financement.warn { background:#fdf3e3; color:#a3671a; border:1px solid #e0a94a; }
 
-#recapListe .recap-item {
-  border: 1px solid #e5e8eb;
-  border-radius: var(--radius);
-  padding: 14px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fbfcfd;
-}
-.recap-item small { color: var(--gris-tagline); }
-.recap-item button {
-  background: #c62828; color: white; border: none; border-radius: 6px;
-  padding: 7px 12px; cursor: pointer; font-size: 0.85rem;
-}
-.recap-item button:hover { background: #a51f1f; }
+.difficulte-item { margin-top:12px; padding:10px 12px; background:#fbfcfd; border:1px solid #e5e8eb; border-radius:var(--radius); }
+.difficulte-head { display:flex; align-items:flex-start; gap:10px; }
+.difficulte-item input[type="checkbox"] { width:auto; margin-top:2px; }
+.difficulte-item label { margin:0; font-weight:600; color:var(--gris-texte); font-size:0.92rem; cursor:pointer; }
+.difficulte-item small { display:block; color:var(--gris-tagline); font-weight:400; margin-top:2px; }
+.difficulte-explication { margin-top:10px; display:none; }
+.difficulte-explication.visible { display:block; }
+.difficulte-explication textarea { min-height:56px; }
+.difficulte-explication .lbl-exp { font-size:0.8rem; font-weight:600; color:var(--bleu-cerc); margin:0 0 4px 0; }
 
-footer.pagefooter {
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--gris-tagline);
-  padding: 20px;
-}
+#recapListe .recap-item { border:1px solid #e5e8eb; border-radius:var(--radius); padding:14px; margin-bottom:10px; background:#fbfcfd; }
+.recap-item .recap-head { display:flex; justify-content:space-between; align-items:center; }
+.recap-item small { color:var(--gris-tagline); }
+.recap-item .recap-detail { margin-top:8px; font-size:0.85rem; color:var(--gris-texte); }
+.recap-item .tag { display:inline-block; background:#eef1f3; color:var(--bleu-cerc); font-size:0.75rem; padding:2px 8px; border-radius:12px; margin:2px 4px 0 0; }
+.recap-item .diff-detail { margin-top:6px; padding-left:10px; border-left:2px solid var(--vert-accent); font-size:0.82rem; }
+.recap-item button.del { background:#c62828; color:white; border:none; border-radius:6px; padding:7px 12px; cursor:pointer; font-size:0.85rem; }
+.recap-item button.del:hover { background:#a51f1f; }
+
+footer.pagefooter { text-align:center; font-size:0.78rem; color:var(--gris-tagline); padding:20px; }
 </style>
 </head>
 <body>
@@ -181,6 +116,11 @@ footer.pagefooter {
 <div class="progress-wrap">
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 </div>
+<div class="substeps hidden" id="substeps">
+  <span id="sub-info">1. Informations</span>
+  <span id="sub-financement">2. Financement</span>
+  <span id="sub-difficultes">3. Difficultés</span>
+</div>
 
 <main id="app">
 
@@ -188,16 +128,14 @@ footer.pagefooter {
   <section id="screen-accueil" class="screen active">
     <h1>Recensement ponctuel des projets d'investissement en travaux</h1>
     <p>Cette campagne unique vise à recenser vos projets de <strong>bâtiment, VRD, réseaux, logement social et énergie</strong>, en cours ou à venir, afin d'alimenter l'observatoire de la commande publique BTP en Guyane.</p>
-    <p>Comptez environ 3 minutes par projet. Vous pouvez saisir plusieurs projets à la suite, sauvegarder votre progression et la reprendre plus tard depuis ce même appareil.</p>
+    <p>Comptez environ 4 minutes par projet. Vous pouvez saisir plusieurs projets à la suite, sauvegarder votre progression et la reprendre plus tard depuis ce même appareil.</p>
     <p class="note">Aucune donnée saisie ici n'est comparée ou classée entre collectivités : chaque contribution est valorisée individuellement.</p>
     <div id="resumeBox" class="hidden">
       <p>Une saisie en cours a été détectée sur cet appareil (<span id="resumeCount"></span> projet(s) déjà enregistré(s)).</p>
       <button id="btnResume" class="btn-primary">Reprendre ma saisie</button>
       <button id="btnRestart" class="btn-secondary">Recommencer une nouvelle saisie</button>
     </div>
-    <div class="nav-buttons">
-      <button id="btnStart" class="btn-primary">Commencer</button>
-    </div>
+    <div class="nav-buttons"><button id="btnStart" class="btn-primary">Commencer</button></div>
   </section>
 
   <!-- ÉCRAN 1 : IDENTIFICATION -->
@@ -205,48 +143,58 @@ footer.pagefooter {
     <h2>Identification de votre structure</h2>
     <label for="maitreOuvrage">Maître d'ouvrage *</label>
     <select id="maitreOuvrage" required></select>
-
     <label for="contactNom">Nom du contact *</label>
     <input type="text" id="contactNom" required>
-
     <label for="contactEmail">Email du contact *</label>
     <input type="email" id="contactEmail" required>
+    <div class="nav-buttons"><button id="btnIdentSuivant" class="btn-primary">Continuer</button></div>
+  </section>
 
+  <!-- ÉCRAN 2a : INFORMATIONS GÉNÉRALES -->
+  <section id="screen-projet" class="screen">
+    <h2>Informations générales du projet</h2>
+    <label for="intitule">Intitulé du projet *</label>
+    <input type="text" id="intitule" required>
+    <label for="typeOperation">Type d'opération *</label>
+    <select id="typeOperation" required></select>
+    <label for="montant">Montant estimé (€ HT) *</label>
+    <input type="number" id="montant" min="0" step="1000" required>
+    <label for="phase">Phase actuelle *</label>
+    <select id="phase" required></select>
+    <label for="dateLancement">Date de lancement prévisionnelle *</label>
+    <input type="month" id="dateLancement" required>
+    <label for="duree">Durée estimée (en mois) *</label>
+    <input type="number" id="duree" min="1" required>
+    <label for="commune">Commune de localisation *</label>
+    <select id="commune" required></select>
     <div class="nav-buttons">
-      <button id="btnIdentSuivant" class="btn-primary">Continuer</button>
+      <button id="btnAnnulerProjet" class="btn-secondary">Annuler</button>
+      <button id="btnProjetSuivant" class="btn-primary">Continuer vers le financement</button>
     </div>
   </section>
 
-  <!-- ÉCRAN 2 : SAISIE PROJET -->
-  <section id="screen-projet" class="screen">
-    <h2>Décrivez un projet d'investissement</h2>
-
-    <label for="intitule">Intitulé du projet *</label>
-    <input type="text" id="intitule" required>
-
-    <label for="typeOperation">Type d'opération *</label>
-    <select id="typeOperation" required></select>
-
-    <label for="montant">Montant estimé (€ HT) *</label>
-    <input type="number" id="montant" min="0" step="1000" required>
-
-    <label for="phase">Phase actuelle *</label>
-    <select id="phase" required></select>
-
-    <label for="dateLancement">Date de lancement prévisionnelle *</label>
-    <input type="month" id="dateLancement" required>
-
-    <label for="duree">Durée estimée (en mois) *</label>
-    <input type="number" id="duree" min="1" required>
-
-    <label for="commune">Commune de localisation *</label>
-    <select id="commune" required></select>
-
-    <label for="financement">Mode de financement *</label>
-    <select id="financement" required></select>
-
+  <!-- ÉCRAN 2b : RÉPARTITION DU FINANCEMENT -->
+  <section id="screen-financement" class="screen">
+    <h2>Répartition du financement</h2>
+    <p>Indiquez les différents financeurs mobilisés sur ce projet et le montant correspondant. Ajoutez une ligne par financeur.</p>
+    <div id="financeursListe"></div>
     <div class="nav-buttons">
-      <button id="btnAnnulerProjet" class="btn-secondary">Annuler</button>
+      <button id="btnAjouterFinanceur" class="btn-tertiary">+ Ajouter un financeur</button>
+    </div>
+    <div id="totalFinancement" class="total-financement"></div>
+    <div class="nav-buttons">
+      <button id="btnFinancementPrecedent" class="btn-secondary">Précédent</button>
+      <button id="btnFinancementSuivant" class="btn-primary">Continuer vers les difficultés</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 2c : DIFFICULTÉS RENCONTRÉES -->
+  <section id="screen-difficultes" class="screen">
+    <h2>Difficultés rencontrées ou anticipées</h2>
+    <p>Cochez toutes les difficultés qui concernent ce projet. Pour chaque difficulté cochée, vous pouvez préciser la raison exacte : cette explication est très utile pour l'observatoire.</p>
+    <div id="difficultesListe"></div>
+    <div class="nav-buttons">
+      <button id="btnDifficultesPrecedent" class="btn-secondary">Précédent</button>
       <button id="btnEnregistrerProjet" class="btn-primary">Enregistrer ce projet</button>
     </div>
   </section>
@@ -302,20 +250,28 @@ const MAITRES_OUVRAGE = [
   "DGTM — Direction Générale des Territoires et de la Mer",
   "CHU de Guyane"
 ];
-
 const COMMUNES = [
   "Apatou","Awala-Yalimapo","Camopi","Cayenne","Grand-Santi","Iracoubo","Kourou",
   "Macouria","Mana","Maripasoula","Matoury","Montsinéry-Tonnegrande","Ouanary",
   "Papaïchton","Régina","Remire-Montjoly","Roura","Saint-Élie","Saint-Georges",
   "Saint-Laurent-du-Maroni","Saül","Sinnamary","Ensemble du territoire (projet multi-communes)"
 ];
-
 const TYPES_OPERATION = ["Bâtiment","VRD","Réseaux (eau, assainissement, énergie...)","Logement social","Énergie / production ou distribution","Autre"];
 const PHASES = ["Études préalables","APS — Avant-Projet Sommaire","APD — Avant-Projet Détaillé","Consultation / appel d'offres","Travaux en cours"];
-const MODES_FINANCEMENT = ["Autofinancement collectivité","État (DSIL, DETR, CPER, contrat de convergence...)","Union Européenne (FEDER, FEADER...)","CTG","Emprunt","Financement mixte","Non déterminé à ce stade"];
+const TYPES_FINANCEUR = ["Autofinancement collectivité","État (DSIL, DETR, CPER, contrat de convergence...)","Union Européenne (FEDER, FEADER...)","CTG","EPCI","Emprunt bancaire","Autre financeur public","Non déterminé à ce stade"];
+const DIFFICULTES = [
+  { id: "financiere", label: "Difficulté financière", detail: "Bouclage budgétaire, recherche de financements complémentaires", placeholder: "Ex : refus ou retard de subvention, capacité d'autofinancement insuffisante..." },
+  { id: "fonciere", label: "Difficulté foncière", detail: "Maîtrise du terrain, indivision, expropriation", placeholder: "Ex : indivision non résolue, propriétaire introuvable, procédure d'expropriation en cours..." },
+  { id: "administrative", label: "Difficulté administrative", detail: "Autorisations, permis de construire, marchés publics", placeholder: "Ex : délai d'instruction du permis, recours contentieux, marché infructueux..." },
+  { id: "environnementale", label: "Autorisations environnementales", detail: "Études d'impact, dérogations, avis de l'autorité environnementale", placeholder: "Ex : étude d'impact à compléter, avis défavorable, espèce protégée identifiée..." },
+  { id: "reseaux_eau", label: "Réseaux eau / assainissement", detail: "Raccordement, capacité des réseaux existants", placeholder: "Ex : réseau existant sous-dimensionné, absence de réseau à proximité..." },
+  { id: "reseaux_energie", label: "Réseaux électricité / énergie", detail: "Raccordement, capacité de production ou de distribution", placeholder: "Ex : délai de raccordement EDF, capacité du poste source insuffisante..." },
+  { id: "autre", label: "Autre difficulté", detail: "Toute autre nature de blocage non listée ci-dessus", placeholder: "Précisez la nature de la difficulté..." }
+];
 
 const DRAFT_KEY = "obseco_draft_v1";
 let draft = { identification: null, projets: [] };
+let projetEnCours = null;
 
 function uuid() { return 'p-' + Date.now() + '-' + Math.random().toString(36).slice(2, 9); }
 function saveDraft() { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); }
@@ -328,16 +284,15 @@ function updateCounter() {
   document.getElementById("personalCounter").textContent = "Projets renseignés : " + n;
   document.getElementById("confCount").textContent = n;
 }
-function fillSelect(elId, values) {
+function fillSelect(elId, values, placeholder) {
   const el = document.getElementById(elId);
-  el.innerHTML = '<option value="">-- Sélectionner --</option>' + values.map(v => `<option value="${v}">${v}</option>`).join("");
+  el.innerHTML = `<option value="">${placeholder || '-- Sélectionner --'}</option>` + values.map(v => `<option value="${v}">${v}</option>`).join("");
 }
 function initSelects() {
   fillSelect("maitreOuvrage", MAITRES_OUVRAGE);
   fillSelect("typeOperation", TYPES_OPERATION);
   fillSelect("phase", PHASES);
   fillSelect("commune", COMMUNES);
-  fillSelect("financement", MODES_FINANCEMENT);
 }
 function initAccueil() {
   const existing = loadDraft();
@@ -346,6 +301,12 @@ function initAccueil() {
     document.getElementById("resumeCount").textContent = existing.projets.length;
   }
 }
+function setSubstep(name) {
+  ["sub-info","sub-financement","sub-difficultes"].forEach(id => document.getElementById(id).classList.remove("active"));
+  document.getElementById("substeps").classList.remove("hidden");
+  document.getElementById("sub-" + name).classList.add("active");
+}
+function hideSubsteps() { document.getElementById("substeps").classList.add("hidden"); }
 
 document.getElementById("btnResume").addEventListener("click", () => {
   draft = loadDraft();
@@ -354,32 +315,38 @@ document.getElementById("btnResume").addEventListener("click", () => {
     document.getElementById("maitreOuvrage").value = draft.identification.maitreOuvrage;
     document.getElementById("contactNom").value = draft.identification.contactNom;
     document.getElementById("contactEmail").value = draft.identification.contactEmail;
-    setProgress(20);
-    showScreen("screen-projet");
+    startNouveauProjet();
   } else {
-    setProgress(10);
-    showScreen("screen-identification");
+    setProgress(10); showScreen("screen-identification");
   }
 });
-document.getElementById("btnRestart").addEventListener("click", () => {
-  clearDraft(); setProgress(10); showScreen("screen-identification");
-});
-document.getElementById("btnStart").addEventListener("click", () => {
-  setProgress(10); showScreen("screen-identification");
-});
+document.getElementById("btnRestart").addEventListener("click", () => { clearDraft(); setProgress(10); showScreen("screen-identification"); });
+document.getElementById("btnStart").addEventListener("click", () => { setProgress(10); showScreen("screen-identification"); });
 document.getElementById("btnIdentSuivant").addEventListener("click", () => {
   const mo = document.getElementById("maitreOuvrage").value;
   const nom = document.getElementById("contactNom").value.trim();
   const email = document.getElementById("contactEmail").value.trim();
   if (!mo || !nom || !email) { alert("Merci de compléter les trois champs avant de continuer."); return; }
   draft.identification = { maitreOuvrage: mo, contactNom: nom, contactEmail: email };
-  saveDraft(); setProgress(20); showScreen("screen-projet");
+  saveDraft();
+  startNouveauProjet();
 });
 
-const CHAMPS_PROJET = ["intitule","typeOperation","montant","phase","dateLancement","duree","commune","financement"];
+function startNouveauProjet() {
+  projetEnCours = { id: uuid(), financements: [], difficultes: [] };
+  resetFormulaireProjet();
+  document.getElementById("financeursListe").innerHTML = "";
+  ajouterLigneFinanceur();
+  renderDifficultes();
+  setSubstep("info");
+  setProgress(20);
+  showScreen("screen-projet");
+}
+
+const CHAMPS_PROJET = ["intitule","typeOperation","montant","phase","dateLancement","duree","commune"];
 function progressionSaisie() {
   const remplis = CHAMPS_PROJET.filter(id => document.getElementById(id).value.trim() !== "").length;
-  setProgress(20 + Math.round((remplis / CHAMPS_PROJET.length) * 60));
+  setProgress(20 + Math.round((remplis / CHAMPS_PROJET.length) * 20));
 }
 CHAMPS_PROJET.forEach(id => {
   document.getElementById(id).addEventListener("input", progressionSaisie);
@@ -388,35 +355,146 @@ CHAMPS_PROJET.forEach(id => {
 function resetFormulaireProjet() { CHAMPS_PROJET.forEach(id => document.getElementById(id).value = ""); }
 
 document.getElementById("btnAnnulerProjet").addEventListener("click", () => {
-  resetFormulaireProjet(); showScreen("screen-recap"); renderRecap();
+  hideSubsteps(); showScreen("screen-recap"); renderRecap();
 });
+document.getElementById("btnProjetSuivant").addEventListener("click", () => {
+  for (const id of CHAMPS_PROJET) {
+    if (!document.getElementById(id).value.trim()) { alert("Merci de compléter tous les champs avant de continuer."); return; }
+  }
+  setSubstep("financement");
+  setProgress(45);
+  showScreen("screen-financement");
+});
+
+// ---------- Financement ----------
+function ajouterLigneFinanceur(financeur, montant) {
+  const cont = document.getElementById("financeursListe");
+  const row = document.createElement("div");
+  row.className = "financeur-row";
+  row.innerHTML = `
+    <select class="fin-type">${TYPES_FINANCEUR.map(v => `<option value="${v}" ${v===financeur?'selected':''}>${v}</option>`).join("")}</select>
+    <input type="number" class="fin-montant" min="0" step="1000" placeholder="Montant (€)" value="${montant || ''}">
+    <button type="button" class="fin-del">Supprimer</button>
+  `;
+  row.querySelector(".fin-del").addEventListener("click", () => { row.remove(); majTotalFinancement(); });
+  row.querySelector(".fin-montant").addEventListener("input", majTotalFinancement);
+  cont.appendChild(row);
+  majTotalFinancement();
+}
+document.getElementById("btnAjouterFinanceur").addEventListener("click", () => ajouterLigneFinanceur());
+
+function majTotalFinancement() {
+  const rows = document.querySelectorAll("#financeursListe .financeur-row");
+  let total = 0;
+  rows.forEach(r => total += Number(r.querySelector(".fin-montant").value || 0));
+  const montantProjet = Number(document.getElementById("montant").value || 0);
+  const el = document.getElementById("totalFinancement");
+  const totalTxt = total.toLocaleString('fr-FR') + " €";
+  const projetTxt = montantProjet.toLocaleString('fr-FR') + " €";
+  if (montantProjet > 0 && total === montantProjet) {
+    el.className = "total-financement ok";
+    el.textContent = `Total réparti : ${totalTxt} — correspond au montant estimé du projet (${projetTxt}).`;
+  } else {
+    el.className = "total-financement warn";
+    el.textContent = `Total réparti : ${totalTxt} sur un montant estimé de ${projetTxt}. Vous pouvez continuer même si la répartition n'est pas encore finalisée.`;
+  }
+}
+document.getElementById("btnFinancementPrecedent").addEventListener("click", () => { setSubstep("info"); setProgress(20); showScreen("screen-projet"); });
+document.getElementById("btnFinancementSuivant").addEventListener("click", () => {
+  const rows = document.querySelectorAll("#financeursListe .financeur-row");
+  const financements = [];
+  for (const r of rows) {
+    const financeur = r.querySelector(".fin-type").value;
+    const montant = r.querySelector(".fin-montant").value;
+    if (financeur && montant) financements.push({ financeur, montant: Number(montant) });
+  }
+  if (financements.length === 0) { alert("Ajoutez au moins un financeur, y compris 'Non déterminé à ce stade' si besoin."); return; }
+  projetEnCours.financements = financements;
+  setSubstep("difficultes");
+  setProgress(70);
+  showScreen("screen-difficultes");
+});
+
+// ---------- Difficultés (avec explication par difficulté cochée) ----------
+function renderDifficultes() {
+  const cont = document.getElementById("difficultesListe");
+  cont.innerHTML = DIFFICULTES.map(d => `
+    <div class="difficulte-item">
+      <div class="difficulte-head">
+        <input type="checkbox" id="diff-${d.id}" data-label="${d.label}">
+        <label for="diff-${d.id}">${d.label}<small>${d.detail}</small></label>
+      </div>
+      <div class="difficulte-explication" id="exp-wrap-${d.id}">
+        <p class="lbl-exp">Pour quelle raison précise ?</p>
+        <textarea id="exp-${d.id}" placeholder="${d.placeholder}"></textarea>
+      </div>
+    </div>
+  `).join("");
+  DIFFICULTES.forEach(d => {
+    document.getElementById("diff-" + d.id).addEventListener("change", (e) => {
+      document.getElementById("exp-wrap-" + d.id).classList.toggle("visible", e.target.checked);
+    });
+  });
+}
+
+document.getElementById("btnDifficultesPrecedent").addEventListener("click", () => { setSubstep("financement"); setProgress(45); showScreen("screen-financement"); });
+
 document.getElementById("btnEnregistrerProjet").addEventListener("click", () => {
   const valeurs = {};
-  for (const id of CHAMPS_PROJET) {
-    const val = document.getElementById(id).value.trim();
-    if (!val) { alert("Merci de compléter tous les champs du projet."); return; }
-    valeurs[id] = val;
-  }
-  valeurs.id = uuid();
-  valeurs.maitreOuvrage = draft.identification.maitreOuvrage;
-  draft.projets.push(valeurs);
-  saveDraft(); updateCounter(); resetFormulaireProjet();
-  setProgress(90); showScreen("screen-confirmation");
+  for (const id of CHAMPS_PROJET) valeurs[id] = document.getElementById(id).value.trim();
+
+  const difficultesRetenues = [];
+  DIFFICULTES.forEach(d => {
+    const checkbox = document.getElementById("diff-" + d.id);
+    if (checkbox.checked) {
+      difficultesRetenues.push({
+        label: d.label,
+        explication: document.getElementById("exp-" + d.id).value.trim()
+      });
+    }
+  });
+
+  projetEnCours = Object.assign(projetEnCours, valeurs, {
+    maitreOuvrage: draft.identification.maitreOuvrage,
+    difficultes: difficultesRetenues
+  });
+
+  draft.projets.push(projetEnCours);
+  saveDraft(); updateCounter();
+  hideSubsteps();
+  setProgress(90);
+  showScreen("screen-confirmation");
 });
-document.getElementById("btnAjouterAutre").addEventListener("click", () => { setProgress(20); showScreen("screen-projet"); });
-document.getElementById("btnAllerRecap").addEventListener("click", () => { renderRecap(); showScreen("screen-recap"); });
+
+document.getElementById("btnAjouterAutre").addEventListener("click", startNouveauProjet);
+document.getElementById("btnAllerRecap").addEventListener("click", () => { renderRecap(); hideSubsteps(); showScreen("screen-recap"); });
 
 function renderRecap() {
   const cont = document.getElementById("recapListe");
   if (draft.projets.length === 0) { cont.innerHTML = "<p>Aucun projet saisi pour le moment.</p>"; return; }
-  cont.innerHTML = draft.projets.map(p => `
+  cont.innerHTML = draft.projets.map(p => {
+    const finTxt = p.financements.map(f => `${f.financeur} : ${Number(f.montant).toLocaleString('fr-FR')} €`).join(" · ");
+    let diffHtml;
+    if (!p.difficultes.length) {
+      diffHtml = `<span class="tag">Aucune difficulté signalée</span>`;
+    } else {
+      diffHtml = p.difficultes.map(d => `
+        <div class="diff-detail"><span class="tag">${d.label}</span>${d.explication ? ` — ${d.explication}` : ' — aucune explication renseignée'}</div>
+      `).join("");
+    }
+    return `
     <div class="recap-item">
-      <div>
-        <strong>${p.intitule}</strong><br>
-        <small>${p.typeOperation} — ${p.commune} — ${Number(p.montant).toLocaleString('fr-FR')} € — ${p.phase}</small>
+      <div class="recap-head">
+        <div>
+          <strong>${p.intitule}</strong><br>
+          <small>${p.typeOperation} — ${p.commune} — ${Number(p.montant).toLocaleString('fr-FR')} € — ${p.phase}</small>
+        </div>
+        <button class="del" data-id="${p.id}">Supprimer</button>
       </div>
-      <button data-id="${p.id}">Supprimer</button>
-    </div>`).join("");
+      <div class="recap-detail"><strong>Financement :</strong> ${finTxt || 'non renseigné'}</div>
+      <div class="recap-detail"><strong>Difficultés :</strong>${diffHtml}</div>
+    </div>`;
+  }).join("");
   cont.querySelectorAll("button[data-id]").forEach(btn => {
     btn.addEventListener("click", (e) => {
       const id = e.target.getAttribute("data-id");
@@ -425,7 +503,7 @@ function renderRecap() {
     });
   });
 }
-document.getElementById("btnRetourAjout").addEventListener("click", () => { setProgress(20); showScreen("screen-projet"); });
+document.getElementById("btnRetourAjout").addEventListener("click", startNouveauProjet);
 
 document.getElementById("btnEnvoyerFinal").addEventListener("click", async () => {
   if (draft.projets.length === 0) { alert("Ajoutez au moins un projet avant l'envoi."); return; }
