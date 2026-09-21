@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSECO Guyane — Recensement des projets d'investissement BTP</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">CERC Guyane — Observatoire OBSECO</div>
+  <div class="counter" id="personalCounter">Projets renseignés : 0</div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<main id="app">
+
+  <!-- ÉCRAN 0 : ACCUEIL -->
+  <section id="screen-accueil" class="screen active">
+    <h1>Recensement ponctuel des projets d'investissement en travaux</h1>
+    <p>Cette campagne unique vise à recenser vos projets de <strong>bâtiment, VRD, réseaux, logement social et énergie</strong>, en cours ou à venir, afin d'alimenter l'observatoire de la commande publique BTP en Guyane.</p>
+    <p>Comptez environ 3 minutes par projet. Vous pouvez saisir plusieurs projets à la suite, sauvegarder votre progression et la reprendre plus tard depuis ce même appareil.</p>
+    <p class="note">Aucune donnée saisie ici n'est comparée ou classée entre collectivités : chaque contribution est valorisée individuellement.</p>
+    <div id="resumeBox" class="hidden">
+      <p>Une saisie en cours a été détectée sur cet appareil (<span id="resumeCount"></span> projet(s) déjà enregistré(s)).</p>
+      <button id="btnResume" class="btn-primary">Reprendre ma saisie</button>
+      <button id="btnRestart" class="btn-secondary">Recommencer une nouvelle saisie</button>
+    </div>
+    <button id="btnStart" class="btn-primary">Commencer</button>
+  </section>
+
+  <!-- ÉCRAN 1 : IDENTIFICATION -->
+  <section id="screen-identification" class="screen">
+    <h2>Identification de votre structure</h2>
+    <label for="maitreOuvrage">Maître d'ouvrage *</label>
+    <select id="maitreOuvrage" required></select>
+
+    <label for="contactNom">Nom du contact *</label>
+    <input type="text" id="contactNom" required>
+
+    <label for="contactEmail">Email du contact *</label>
+    <input type="email" id="contactEmail" required>
+
+    <div class="nav-buttons">
+      <button id="btnIdentSuivant" class="btn-primary">Continuer</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 2 : SAISIE PROJET -->
+  <section id="screen-projet" class="screen">
+    <h2>Décrivez un projet d'investissement</h2>
+
+    <label for="intitule">Intitulé du projet *</label>
+    <input type="text" id="intitule" required>
+
+    <label for="typeOperation">Type d'opération *</label>
+    <select id="typeOperation" required></select>
+
+    <label for="montant">Montant estimé (€ HT) *</label>
+    <input type="number" id="montant" min="0" step="1000" required>
+
+    <label for="phase">Phase actuelle *</label>
+    <select id="phase" required></select>
+
+    <label for="dateLancement">Date de lancement prévisionnelle *</label>
+    <input type="month" id="dateLancement" required>
+
+    <label for="duree">Durée estimée (en mois) *</label>
+    <input type="number" id="duree" min="1" required>
+
+    <label for="commune">Commune de localisation *</label>
+    <select id="commune" required></select>
+
+    <label for="financement">Mode de financement *</label>
+    <select id="financement" required></select>
+
+    <div class="nav-buttons">
+      <button id="btnAnnulerProjet" class="btn-secondary">Annuler</button>
+      <button id="btnEnregistrerProjet" class="btn-primary">Enregistrer ce projet</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 3 : CONFIRMATION D'AJOUT -->
+  <section id="screen-confirmation" class="screen">
+    <div class="check-anim">✓</div>
+    <h2>Projet enregistré</h2>
+    <p class="valorisation">Votre commune contribue à la connaissance du BTP guyanais.</p>
+    <p>Total de projets renseignés : <strong id="confCount">0</strong></p>
+    <div class="nav-buttons">
+      <button id="btnAjouterAutre" class="btn-primary">Ajouter un autre projet</button>
+      <button id="btnAllerRecap" class="btn-secondary">Voir le récapitulatif et envoyer</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 4 : RÉCAPITULATIF -->
+  <section id="screen-recap" class="screen">
+    <h2>Récapitulatif avant envoi</h2>
+    <div id="recapListe"></div>
+    <div class="nav-buttons">
+      <button id="btnRetourAjout" class="btn-secondary">Ajouter un autre projet</button>
+      <button id="btnEnvoyerFinal" class="btn-primary">Envoyer définitivement</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN 5 : REMERCIEMENT -->
+  <section id="screen-merci" class="screen">
+    <h2>Merci pour votre contribution</h2>
+    <p id="merciTexte"></p>
+    <p class="note">Vous pouvez fermer cette page. Un nouvel envoi créera une nouvelle contribution.</p>
+  </section>
+
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
