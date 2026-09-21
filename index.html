@@ -4,12 +4,177 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OBSECO Guyane — Recensement des projets d'investissement BTP</title>
-<link rel="stylesheet" href="css/style.css">
+<style>
+:root {
+  --bleu-cerc: #1b3160;
+  --bleu-cerc-clair: #2f5ea0;
+  --bleu-mosaique: #4fa8d8;
+  --vert-cerc: #4d9b3f;
+  --vert-accent: #b8d431;
+  --gris-texte: #2b2f33;
+  --gris-tagline: #6d6e71;
+  --gris-clair: #f4f6f8;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  background: var(--gris-clair);
+  color: var(--gris-texte);
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--bleu-cerc) 0%, var(--vert-cerc) 100%);
+  color: white;
+  padding: 16px 28px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.brand { display: flex; flex-direction: column; }
+.brand strong { font-size: 1.05rem; letter-spacing: 0.3px; }
+.brand span { font-size: 0.78rem; opacity: 0.9; }
+
+.counter {
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--vert-accent);
+  color: var(--bleu-cerc);
+  padding: 6px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.progress-wrap { padding: 14px 28px; background: white; border-bottom: 1px solid #e5e8eb; }
+.progress-bar { height: 10px; background: #e9edf0; border-radius: 6px; overflow: hidden; }
+.progress-fill {
+  height: 100%;
+  width: 10%;
+  background: linear-gradient(90deg, var(--bleu-mosaique), var(--vert-cerc), var(--vert-accent));
+  transition: width 0.45s ease;
+  border-radius: 6px;
+}
+
+main {
+  max-width: 660px;
+  margin: 36px auto;
+  padding: 32px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px rgba(27,49,96,0.1);
+}
+
+.screen { display: none; }
+.screen.active { display: block; animation: fadein 0.3s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+h1 { color: var(--bleu-cerc); font-size: 1.5rem; margin-top: 0; }
+h2 { color: var(--bleu-cerc); font-size: 1.25rem; border-left: 4px solid var(--vert-cerc); padding-left: 12px; }
+
+p { line-height: 1.55; }
+.note {
+  font-size: 0.85rem;
+  color: var(--gris-tagline);
+  background: #eef6ea;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border-left: 3px solid var(--vert-cerc);
+}
+
+label { display: block; margin-top: 16px; font-weight: 600; font-size: 0.88rem; color: var(--bleu-cerc); }
+input, select {
+  width: 100%;
+  padding: 11px 12px;
+  margin-top: 6px;
+  border: 1px solid #d4d9dd;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  background: #fbfcfd;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--bleu-mosaique);
+  box-shadow: 0 0 0 3px rgba(79,168,216,0.18);
+}
+
+.nav-buttons { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-primary, .btn-secondary {
+  padding: 11px 22px;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+.btn-primary { background: var(--vert-cerc); color: white; }
+.btn-primary:hover { background: #3f8433; transform: translateY(-1px); }
+.btn-secondary { background: #eef1f3; color: var(--bleu-cerc); }
+.btn-secondary:hover { background: #dfe4e8; }
+
+.valorisation { font-size: 1.05rem; color: var(--vert-cerc); font-weight: 700; text-align: center; }
+
+.check-anim {
+  width: 68px; height: 68px;
+  background: var(--vert-accent); color: var(--bleu-cerc);
+  border-radius: 50%; text-align: center; font-size: 2.1rem; line-height: 68px;
+  margin: 8px auto 18px auto;
+  animation: pop 0.4s ease;
+  box-shadow: 0 4px 12px rgba(184,212,49,0.4);
+}
+@keyframes pop { 0% { transform: scale(0); } 80% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+#screen-confirmation h2, #screen-confirmation p, #screen-merci h2 { text-align: center; }
+
+.hidden { display: none; }
+
+#resumeBox {
+  background: #eaf3fb;
+  border: 1px solid var(--bleu-mosaique);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin: 16px 0;
+}
+
+#recapListe .recap-item {
+  border: 1px solid #e5e8eb;
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fbfcfd;
+}
+.recap-item small { color: var(--gris-tagline); }
+.recap-item button {
+  background: #c62828; color: white; border: none; border-radius: 6px;
+  padding: 7px 12px; cursor: pointer; font-size: 0.85rem;
+}
+.recap-item button:hover { background: #a51f1f; }
+
+footer.pagefooter {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--gris-tagline);
+  padding: 20px;
+}
+</style>
 </head>
 <body>
 
 <header class="topbar">
-  <div class="brand">CERC Guyane — Observatoire OBSECO</div>
+  <div class="brand">
+    <strong>CERC Guyane</strong>
+    <span>L'Observatoire économique et social du marché de la construction — OBSECO / SPOT</span>
+  </div>
   <div class="counter" id="personalCounter">Projets renseignés : 0</div>
 </header>
 
@@ -30,7 +195,9 @@
       <button id="btnResume" class="btn-primary">Reprendre ma saisie</button>
       <button id="btnRestart" class="btn-secondary">Recommencer une nouvelle saisie</button>
     </div>
-    <button id="btnStart" class="btn-primary">Commencer</button>
+    <div class="nav-buttons">
+      <button id="btnStart" class="btn-primary">Commencer</button>
+    </div>
   </section>
 
   <!-- ÉCRAN 1 : IDENTIFICATION -->
@@ -89,8 +256,8 @@
     <div class="check-anim">✓</div>
     <h2>Projet enregistré</h2>
     <p class="valorisation">Votre commune contribue à la connaissance du BTP guyanais.</p>
-    <p>Total de projets renseignés : <strong id="confCount">0</strong></p>
-    <div class="nav-buttons">
+    <p style="text-align:center;">Total de projets renseignés : <strong id="confCount">0</strong></p>
+    <div class="nav-buttons" style="justify-content:center;">
       <button id="btnAjouterAutre" class="btn-primary">Ajouter un autre projet</button>
       <button id="btnAllerRecap" class="btn-secondary">Voir le récapitulatif et envoyer</button>
     </div>
@@ -109,13 +276,175 @@
   <!-- ÉCRAN 5 : REMERCIEMENT -->
   <section id="screen-merci" class="screen">
     <h2>Merci pour votre contribution</h2>
-    <p id="merciTexte"></p>
+    <p id="merciTexte" style="text-align:center;"></p>
     <p class="note">Vous pouvez fermer cette page. Un nouvel envoi créera une nouvelle contribution.</p>
   </section>
 
 </main>
 
-<script src="js/config.js"></script>
-<script src="js/app.js"></script>
+<footer class="pagefooter">CERC Guyane — Observatoire OBSECO / SPOT · Campagne ponctuelle de recensement 2026</footer>
+
+<script>
+const WEBAPP_URL = "COLLEZ_ICI_VOTRE_URL_WEB_APP_APPS_SCRIPT";
+
+const MAITRES_OUVRAGE = [
+  "Mairie de Apatou","Mairie de Awala-Yalimapo","Mairie de Camopi","Mairie de Cayenne",
+  "Mairie de Grand-Santi","Mairie de Iracoubo","Mairie de Kourou","Mairie de Macouria",
+  "Mairie de Mana","Mairie de Maripasoula","Mairie de Matoury","Mairie de Montsinéry-Tonnegrande",
+  "Mairie de Ouanary","Mairie de Papaïchton","Mairie de Régina","Mairie de Remire-Montjoly",
+  "Mairie de Roura","Mairie de Saint-Élie","Mairie de Saint-Georges","Mairie de Saint-Laurent-du-Maroni",
+  "Mairie de Saül","Mairie de Sinnamary",
+  "CACL — Communauté d'Agglomération du Centre Littoral",
+  "CCOG — Communauté de Communes de l'Ouest Guyanais",
+  "CCEG — Communauté de Communes de l'Est Guyanais",
+  "CCDS — Communauté de Communes des Savanes",
+  "CTG — Collectivité Territoriale de Guyane",
+  "DGTM — Direction Générale des Territoires et de la Mer",
+  "CHU de Guyane"
+];
+
+const COMMUNES = [
+  "Apatou","Awala-Yalimapo","Camopi","Cayenne","Grand-Santi","Iracoubo","Kourou",
+  "Macouria","Mana","Maripasoula","Matoury","Montsinéry-Tonnegrande","Ouanary",
+  "Papaïchton","Régina","Remire-Montjoly","Roura","Saint-Élie","Saint-Georges",
+  "Saint-Laurent-du-Maroni","Saül","Sinnamary","Ensemble du territoire (projet multi-communes)"
+];
+
+const TYPES_OPERATION = ["Bâtiment","VRD","Réseaux (eau, assainissement, énergie...)","Logement social","Énergie / production ou distribution","Autre"];
+const PHASES = ["Études préalables","APS — Avant-Projet Sommaire","APD — Avant-Projet Détaillé","Consultation / appel d'offres","Travaux en cours"];
+const MODES_FINANCEMENT = ["Autofinancement collectivité","État (DSIL, DETR, CPER, contrat de convergence...)","Union Européenne (FEDER, FEADER...)","CTG","Emprunt","Financement mixte","Non déterminé à ce stade"];
+
+const DRAFT_KEY = "obseco_draft_v1";
+let draft = { identification: null, projets: [] };
+
+function uuid() { return 'p-' + Date.now() + '-' + Math.random().toString(36).slice(2, 9); }
+function saveDraft() { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)); }
+function loadDraft() { const raw = localStorage.getItem(DRAFT_KEY); return raw ? JSON.parse(raw) : null; }
+function clearDraft() { localStorage.removeItem(DRAFT_KEY); draft = { identification: null, projets: [] }; }
+function showScreen(id) { document.querySelectorAll(".screen").forEach(s => s.classList.remove("active")); document.getElementById(id).classList.add("active"); }
+function setProgress(pct) { document.getElementById("progressFill").style.width = pct + "%"; }
+function updateCounter() {
+  const n = draft.projets.length;
+  document.getElementById("personalCounter").textContent = "Projets renseignés : " + n;
+  document.getElementById("confCount").textContent = n;
+}
+function fillSelect(elId, values) {
+  const el = document.getElementById(elId);
+  el.innerHTML = '<option value="">-- Sélectionner --</option>' + values.map(v => `<option value="${v}">${v}</option>`).join("");
+}
+function initSelects() {
+  fillSelect("maitreOuvrage", MAITRES_OUVRAGE);
+  fillSelect("typeOperation", TYPES_OPERATION);
+  fillSelect("phase", PHASES);
+  fillSelect("commune", COMMUNES);
+  fillSelect("financement", MODES_FINANCEMENT);
+}
+function initAccueil() {
+  const existing = loadDraft();
+  if (existing && (existing.projets.length > 0 || existing.identification)) {
+    document.getElementById("resumeBox").classList.remove("hidden");
+    document.getElementById("resumeCount").textContent = existing.projets.length;
+  }
+}
+
+document.getElementById("btnResume").addEventListener("click", () => {
+  draft = loadDraft();
+  updateCounter();
+  if (draft.identification) {
+    document.getElementById("maitreOuvrage").value = draft.identification.maitreOuvrage;
+    document.getElementById("contactNom").value = draft.identification.contactNom;
+    document.getElementById("contactEmail").value = draft.identification.contactEmail;
+    setProgress(20);
+    showScreen("screen-projet");
+  } else {
+    setProgress(10);
+    showScreen("screen-identification");
+  }
+});
+document.getElementById("btnRestart").addEventListener("click", () => {
+  clearDraft(); setProgress(10); showScreen("screen-identification");
+});
+document.getElementById("btnStart").addEventListener("click", () => {
+  setProgress(10); showScreen("screen-identification");
+});
+document.getElementById("btnIdentSuivant").addEventListener("click", () => {
+  const mo = document.getElementById("maitreOuvrage").value;
+  const nom = document.getElementById("contactNom").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  if (!mo || !nom || !email) { alert("Merci de compléter les trois champs avant de continuer."); return; }
+  draft.identification = { maitreOuvrage: mo, contactNom: nom, contactEmail: email };
+  saveDraft(); setProgress(20); showScreen("screen-projet");
+});
+
+const CHAMPS_PROJET = ["intitule","typeOperation","montant","phase","dateLancement","duree","commune","financement"];
+function progressionSaisie() {
+  const remplis = CHAMPS_PROJET.filter(id => document.getElementById(id).value.trim() !== "").length;
+  setProgress(20 + Math.round((remplis / CHAMPS_PROJET.length) * 60));
+}
+CHAMPS_PROJET.forEach(id => {
+  document.getElementById(id).addEventListener("input", progressionSaisie);
+  document.getElementById(id).addEventListener("change", progressionSaisie);
+});
+function resetFormulaireProjet() { CHAMPS_PROJET.forEach(id => document.getElementById(id).value = ""); }
+
+document.getElementById("btnAnnulerProjet").addEventListener("click", () => {
+  resetFormulaireProjet(); showScreen("screen-recap"); renderRecap();
+});
+document.getElementById("btnEnregistrerProjet").addEventListener("click", () => {
+  const valeurs = {};
+  for (const id of CHAMPS_PROJET) {
+    const val = document.getElementById(id).value.trim();
+    if (!val) { alert("Merci de compléter tous les champs du projet."); return; }
+    valeurs[id] = val;
+  }
+  valeurs.id = uuid();
+  valeurs.maitreOuvrage = draft.identification.maitreOuvrage;
+  draft.projets.push(valeurs);
+  saveDraft(); updateCounter(); resetFormulaireProjet();
+  setProgress(90); showScreen("screen-confirmation");
+});
+document.getElementById("btnAjouterAutre").addEventListener("click", () => { setProgress(20); showScreen("screen-projet"); });
+document.getElementById("btnAllerRecap").addEventListener("click", () => { renderRecap(); showScreen("screen-recap"); });
+
+function renderRecap() {
+  const cont = document.getElementById("recapListe");
+  if (draft.projets.length === 0) { cont.innerHTML = "<p>Aucun projet saisi pour le moment.</p>"; return; }
+  cont.innerHTML = draft.projets.map(p => `
+    <div class="recap-item">
+      <div>
+        <strong>${p.intitule}</strong><br>
+        <small>${p.typeOperation} — ${p.commune} — ${Number(p.montant).toLocaleString('fr-FR')} € — ${p.phase}</small>
+      </div>
+      <button data-id="${p.id}">Supprimer</button>
+    </div>`).join("");
+  cont.querySelectorAll("button[data-id]").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.getAttribute("data-id");
+      draft.projets = draft.projets.filter(p => p.id !== id);
+      saveDraft(); updateCounter(); renderRecap();
+    });
+  });
+}
+document.getElementById("btnRetourAjout").addEventListener("click", () => { setProgress(20); showScreen("screen-projet"); });
+
+document.getElementById("btnEnvoyerFinal").addEventListener("click", async () => {
+  if (draft.projets.length === 0) { alert("Ajoutez au moins un projet avant l'envoi."); return; }
+  const btn = document.getElementById("btnEnvoyerFinal");
+  btn.disabled = true; btn.textContent = "Envoi en cours...";
+  const payload = { identification: draft.identification, projets: draft.projets, envoiId: uuid(), horodatage: new Date().toISOString() };
+  try {
+    await fetch(WEBAPP_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) });
+    document.getElementById("merciTexte").textContent = `Votre contribution (${draft.projets.length} projet(s)) a bien été transmise à l'observatoire OBSECO. Merci pour votre implication dans la connaissance du BTP guyanais.`;
+    setProgress(100); showScreen("screen-merci"); clearDraft();
+  } catch (err) {
+    alert("Une erreur est survenue lors de l'envoi. Vos données restent sauvegardées localement, vous pouvez réessayer.");
+    btn.disabled = false; btn.textContent = "Envoyer définitivement";
+  }
+});
+
+initSelects();
+initAccueil();
+updateCounter();
+</script>
 </body>
 </html>
