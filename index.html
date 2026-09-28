@@ -160,7 +160,7 @@ footer.pagefooter { text-align:center; font-size:0.78rem; color:var(--gris-tagli
     <label for="typeOperation">Type d'opération *</label>
     <select id="typeOperation" required></select>
     <label for="montant">Montant estimé (€ HT) *</label>
-    <input type="number" id="montant" min="0" step="1000" required>
+    <input type="text" id="montant" inputmode="numeric" pattern="[0-9]*" placeholder="Ex : 1200000" required>
     <label for="phase">Phase actuelle *</label>
     <select id="phase" required></select>
     <label>Date de lancement prévisionnelle *</label>
@@ -169,7 +169,7 @@ footer.pagefooter { text-align:center; font-size:0.78rem; color:var(--gris-tagli
       <select id="dateLancementAnnee" required></select>
     </div>
     <label for="duree">Durée estimée (en mois) *</label>
-    <input type="number" id="duree" min="1" required>
+    <input type="text" id="duree" inputmode="numeric" pattern="[0-9]*" placeholder="Ex : 18" required>
     <label for="commune">Commune de localisation *</label>
     <select id="commune" required></select>
     <div class="nav-buttons">
@@ -335,6 +335,7 @@ function setSubstep(name) {
   document.getElementById("sub-" + name).classList.add("active");
 }
 function hideSubsteps() { document.getElementById("substeps").classList.add("hidden"); }
+function restreindreNumerique(e) { e.target.value = e.target.value.replace(/[^0-9]/g, ""); }
 
 document.getElementById("btnResume").addEventListener("click", () => {
   draft = loadDraft();
@@ -380,6 +381,8 @@ CHAMPS_PROJET.forEach(id => {
   document.getElementById(id).addEventListener("input", progressionSaisie);
   document.getElementById(id).addEventListener("change", progressionSaisie);
 });
+document.getElementById("montant").addEventListener("input", restreindreNumerique);
+document.getElementById("duree").addEventListener("input", restreindreNumerique);
 function resetFormulaireProjet() { CHAMPS_PROJET.forEach(id => document.getElementById(id).value = ""); }
 
 document.getElementById("btnAnnulerProjet").addEventListener("click", () => {
@@ -401,10 +404,11 @@ function ajouterLigneFinanceur(financeur, montant) {
   row.className = "financeur-row";
   row.innerHTML = `
     <select class="fin-type">${TYPES_FINANCEUR.map(v => `<option value="${v}" ${v===financeur?'selected':''}>${v}</option>`).join("")}</select>
-    <input type="number" class="fin-montant" min="0" step="1000" placeholder="Montant (€)" value="${montant || ''}">
+    <input type="text" class="fin-montant" inputmode="numeric" pattern="[0-9]*" placeholder="Montant (€)" value="${montant || ''}">
     <button type="button" class="fin-del">Supprimer</button>
   `;
   row.querySelector(".fin-del").addEventListener("click", () => { row.remove(); majTotalFinancement(); });
+  row.querySelector(".fin-montant").addEventListener("input", restreindreNumerique);
   row.querySelector(".fin-montant").addEventListener("input", majTotalFinancement);
   cont.appendChild(row);
   majTotalFinancement();
