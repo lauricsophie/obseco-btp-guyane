@@ -45,6 +45,8 @@ input, select, textarea {
 }
 textarea { resize:vertical; min-height:64px; }
 input:focus, select:focus, textarea:focus { outline:none; border-color:var(--bleu-mosaique); box-shadow:0 0 0 3px rgba(79,168,216,0.18); }
+.date-row { display:flex; gap:10px; }
+.date-row select { flex:1; margin-top:6px; }
 .nav-buttons { margin-top:28px; display:flex; gap:12px; flex-wrap:wrap; }
 .btn-primary, .btn-secondary, .btn-tertiary {
   padding:11px 22px; border-radius:var(--radius); border:none; font-size:0.95rem; font-weight:600; cursor:pointer;
@@ -161,8 +163,11 @@ footer.pagefooter { text-align:center; font-size:0.78rem; color:var(--gris-tagli
     <input type="number" id="montant" min="0" step="1000" required>
     <label for="phase">Phase actuelle *</label>
     <select id="phase" required></select>
-    <label for="dateLancement">Date de lancement prévisionnelle *</label>
-    <input type="month" id="dateLancement" required>
+    <label>Date de lancement prévisionnelle *</label>
+    <div class="date-row">
+      <select id="dateLancementMois" required></select>
+      <select id="dateLancementAnnee" required></select>
+    </div>
     <label for="duree">Durée estimée (en mois) *</label>
     <input type="number" id="duree" min="1" required>
     <label for="commune">Commune de localisation *</label>
@@ -275,6 +280,12 @@ const DIFFICULTES = [
   { id: "reseaux_energie", label: "Réseaux électricité / énergie", detail: "Raccordement, capacité de production ou de distribution", placeholder: "Ex : délai de raccordement EDF, capacité du poste source insuffisante..." },
   { id: "autre", label: "Autre difficulté", detail: "Toute autre nature de blocage non listée ci-dessus", placeholder: "Précisez la nature de la difficulté..." }
 ];
+const MOIS_LISTE = [
+  { value: "01", label: "Janvier" }, { value: "02", label: "Février" }, { value: "03", label: "Mars" },
+  { value: "04", label: "Avril" }, { value: "05", label: "Mai" }, { value: "06", label: "Juin" },
+  { value: "07", label: "Juillet" }, { value: "08", label: "Août" }, { value: "09", label: "Septembre" },
+  { value: "10", label: "Octobre" }, { value: "11", label: "Novembre" }, { value: "12", label: "Décembre" }
+];
 
 const DRAFT_KEY = "obseco_draft_v1";
 let draft = { identification: null, projets: [] };
@@ -295,11 +306,21 @@ function fillSelect(elId, values, placeholder) {
   const el = document.getElementById(elId);
   el.innerHTML = `<option value="">${placeholder || '-- Sélectionner --'}</option>` + values.map(v => `<option value="${v}">${v}</option>`).join("");
 }
+function initDateLancement() {
+  const selMois = document.getElementById("dateLancementMois");
+  selMois.innerHTML = '<option value="">-- Mois --</option>' + MOIS_LISTE.map(m => `<option value="${m.value}">${m.label}</option>`).join("");
+  const selAnnee = document.getElementById("dateLancementAnnee");
+  const anneeActuelle = new Date().getFullYear();
+  let opts = '<option value="">-- Année --</option>';
+  for (let a = anneeActuelle; a <= anneeActuelle + 6; a++) opts += `<option value="${a}">${a}</option>`;
+  selAnnee.innerHTML = opts;
+}
 function initSelects() {
   fillSelect("maitreOuvrage", MAITRES_OUVRAGE);
   fillSelect("typeOperation", TYPES_OPERATION);
   fillSelect("phase", PHASES);
   fillSelect("commune", COMMUNES);
+  initDateLancement();
 }
 function initAccueil() {
   const existing = loadDraft();
@@ -350,7 +371,7 @@ function startNouveauProjet() {
   showScreen("screen-projet");
 }
 
-const CHAMPS_PROJET = ["intitule","typeOperation","montant","phase","dateLancement","duree","commune"];
+const CHAMPS_PROJET = ["intitule","typeOperation","montant","phase","dateLancementMois","dateLancementAnnee","duree","commune"];
 function progressionSaisie() {
   const remplis = CHAMPS_PROJET.filter(id => document.getElementById(id).value.trim() !== "").length;
   setProgress(20 + Math.round((remplis / CHAMPS_PROJET.length) * 20));
@@ -449,6 +470,9 @@ document.getElementById("btnDifficultesPrecedent").addEventListener("click", () 
 document.getElementById("btnEnregistrerProjet").addEventListener("click", () => {
   const valeurs = {};
   for (const id of CHAMPS_PROJET) valeurs[id] = document.getElementById(id).value.trim();
+  valeurs.dateLancement = valeurs.dateLancementAnnee + "-" + valeurs.dateLancementMois;
+  delete valeurs.dateLancementMois;
+  delete valeurs.dateLancementAnnee;
 
   const difficultesRetenues = [];
   DIFFICULTES.forEach(d => {
